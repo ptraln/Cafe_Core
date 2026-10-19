@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CafeCore Inventory Management System</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <button type="button" class="sidebar-logo-toggle" aria-label="Open navigation" aria-expanded="false" aria-controls="mainNavigation">
+                    <img class="sidebar-mark" src="../IMAGE/logoonlyd.png" alt="">
+                    <span class="sidebar-brand"><img src="../IMAGE/cafe-core-wordmark.png" alt="CafeCore"><small>-INVENTORY SYSTEM-</small></span>
+                </button>
+            </div>
+
+            <nav id="mainNavigation"></nav>
+
+            <div class="sidebar-bottom">
+                <button onclick="logout()" class="logout-btn">
+                    <span>↪</span>
+                    Logout
+                </button>
+            </div>
+        </aside>
+        <main class="main-content">
+            <div class="app-page" id="page-dashboard" data-page="dashboard">
+
+
+
+
+            <header class="topbar">
+                <div>
+                    <h1>Dashboard</h1>
+                </div>
+
+                <div class="user-info">
+                    <div class="user-icon">A</div>
+                    <div>
+                        <strong id="loggedUser">Administrator</strong>
+                        <small>Inventory Staff</small>
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard-content">
+
+                <div class="dashboard-cards">
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📦</div>
+                        <div>
+                            <span>Total Products</span>
+                            <h2 id="totalProducts">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon warning">⚠</div>
+                        <div>
+                            <span>Low Stock</span>
+                            <h2 id="lowStockCount">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon success">✓</div>
+                        <div>
+                            <span>Available Stock</span>
+                            <h2 id="availableStock">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon shipment-icon">⇄</div>
+                        <div>
+                            <span>Pending Shipments</span>
+                            <h2 id="pendingShipments">0</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dashboard-grid">
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <h2>Low Stock Alert</h2>
+                                <p>Products that need restocking</p>
+                            </div>
+                            <a href="#" data-nav="stocks" class="small-btn">View Stocks</a>
+                        </div>
+
+                        <div id="dashboardLowStock" class="alert-list"></div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-header">
+                            <div>
+                                <h2>Shipment Status</h2>
+                                <p>Recent supply deliveries</p>
+                            </div>
+                            <a href="#" data-nav="shipment" class="small-btn">View Shipments</a>
+                        </div>
+
+                        <div id="dashboardShipments" class="shipment-list"></div>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Inventory Overview</h2>
+                            <p>Current cafe supply categories</p>
+                        </div>
+                    </div>
+
+                    <div class="category-grid" id="dashboardCategoryGrid"></div>
+                </div>
+
+            </section>
+
+            <section class="page-content driver-dashboard-content" id="driverDashboard" hidden>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>My Deliveries</h2>
+                            <p>Outgoing shipments assigned to you</p>
+                        </div>
+                    </div>
+                    <div id="myDeliveriesList" class="driver-shipment-list"></div>
+                </div>
+            </section>
+
+        
+
+
+</div>
+
+<section id="accessDeniedPanel" class="page-content permission-access-denied" hidden>
+    <div class="panel">
+        <h2>No feature access</h2>
+        <p>Your role currently has no feature access. Ask an Admin to update your Role Permissions.</p>
+    </div>
+</section>
+
+<div class="app-page" id="page-stocks" data-page="stocks" hidden>
+
+
+            <header class="topbar">
+                <div>
+                    <h1>Stocks & Supplies</h1>
+                </div>
+                <div class="feature-page-actions">
+                    <button type="button" class="secondary-btn filter-toggle-btn" id="stockFilterToggle" aria-expanded="false" aria-controls="stockFilterPanel"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3 1v-7.6L4 5z"></path></svg>Filter</button>
+                    <button class="primary-btn" id="addStockButton" onclick="openStockModal()">+ Add Supply</button>
+                </div>
+            </header>
+
+            <section class="page-content">
+
+                <div class="inventory-summary">
+
+                    <div class="mini-card">
+                        <span>Total Items</span>
+                        <strong id="stockTotal">0</strong>
+                    </div>
+
+                    <div class="mini-card">
+                        <span>Low Stock</span>
+                        <strong id="stockLow">0</strong>
+                    </div>
+
+                    <div class="mini-card">
+                        <span>Out of Stock</span>
+                        <strong id="stockOut">0</strong>
+                    </div>
+
+                    <div class="mini-card">
+                        <span>Total Quantity</span>
+                        <strong id="stockQuantity">0</strong>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="table-toolbar">
+                        <div>
+                            <h2>Stocks & Supplies</h2>
+                            <p>Track supply levels, stock status, and minimum quantities.</p>
+                        </div>
+
+                    </div>
+
+                    <details class="filter-search-panel" id="stockFilterPanel">
+                    <summary><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3 1v-7.6L4 5z"></path></svg><span>Filter Search</span></summary>
+                    <div class="filter-search-content">
+                        <div class="filter-grid">
+                            <div class="filter-field">
+                                <label for="stockCategoryFilter">Category</label>
+                                <select id="stockCategoryFilter">
+                                    <option value="all">All Categories</option>
+                                    <option value="Milk">Milk</option>
+                                    <option value="Beans">Coffee Beans</option>
+                                    <option value="Sugar">Sugar</option>
+                                    <option value="Syrups">Syrups</option>
+                                    <option value="Cups">Cups</option>
+                                    <option value="Pearls">Pearls</option>
+                                    <option value="Powdered Flavors">Powdered Flavors</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label for="stockStatusFilter">Status</label>
+                                <select id="stockStatusFilter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="Low Stock">Low Stock</option>
+                                    <option value="Out of Stock">Out of Stock</option>
+                                    <option value="Available">Sufficient</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-search-actions">
+                            <label class="filter-search-input">
+                                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+                                <input id="stockSearchFilter" type="search" placeholder="Search supply name..." aria-label="Search supply name">
+                            </label>
+                            <div class="filter-buttons">
+                                <button type="button" class="secondary-btn" id="stockFilterReset">Reset</button>
+                                <button type="button" class="primary-btn" id="stockFilterApply">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                    </details>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Supply</th>
+                                    <th>Category</th>
+                                    <th>Quantity</th>
+                                    <th>Unit</th>
+                                    <th>Minimum</th>
+                                    <th>Status</th>
+                                    <th id="stockActionsHeading">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="stockTableBody"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+
+        
+</div>
+
+<div class="app-page" id="page-shipment" data-page="shipment" hidden>
+
+
+                <header class="topbar feature-page-topbar">
+                    <div>
+                        <h1>Shipment Tracker</h1>
+                    </div>
+                    <div class="toolbar-actions shipment-toolbar-actions feature-page-actions">
+                        <button type="button" class="secondary-btn receive-supply-trigger" onclick="openReceiveSupplies()"><span aria-hidden="true">↓</span> Receive Supply</button>
+                        <button type="button" class="secondary-btn filter-toggle-btn" id="shipmentFilterToggle" aria-expanded="false" aria-controls="shipmentFilterPanel"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3-1v-7.6L4 5z"></path></svg>Filter</button>
+                        <button class="primary-btn" id="shipmentAddButton" onclick="openShipmentModal()">+ Add Shipment</button>
+                    </div>
+                </header>
+
+                <section class="page-content">
+
+                    <div class="inventory-summary">
+
+                        <div class="mini-card">
+                            <span>Total Shipments</span>
+                            <strong id="shipmentTotal">0</strong>
+                        </div>
+
+                        <div class="mini-card">
+                            <span>Incoming</span>
+                            <strong id="incomingCount">0</strong>
+                        </div>
+
+                        <div class="mini-card">
+                            <span>Outgoing</span>
+                            <strong id="outgoingCount">0</strong>
+                        </div>
+
+                        <div class="mini-card">
+                            <span>Pending</span>
+                            <strong id="shipmentPending">0</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="panel">
+
+                        <div class="table-toolbar">
+                            <div>
+                                <h2>Shipment Tracker</h2>
+                                <p>Monitor incoming and outgoing supply movements.</p>
+                            </div>
+
+                        </div>
+
+                        <details class="filter-search-panel" id="shipmentFilterPanel">
+                            <summary><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3 1v-7.6L4 5z"></path></svg><span>Filter Search</span></summary>
+                            <div class="filter-search-content">
+                                <div class="filter-grid">
+                                    <div class="filter-field">
+                                        <label for="shipmentTypeFilter">Type</label>
+                                        <select id="shipmentTypeFilter">
+                                            <option value="all">All Types</option>
+                                            <option value="Incoming">Incoming</option>
+                                            <option value="Outgoing">Outgoing</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-field">
+                                        <label for="shipmentStatusFilter">Status</label>
+                                        <select id="shipmentStatusFilter">
+                                            <option value="all">All Statuses</option>
+                                            <option value="Pending">Pending</option>
+                                            <option value="In Transit">In Transit</option>
+                                            <option value="Delivered">Delivered</option>
+                                            <option value="Cancelled">Cancelled</option>
+                                        </select>
+                                    </div>
+                                    <div class="filter-field">
+                                        <label for="shipmentDateFrom">Date from <span>(optional)</span></label>
+                                        <input id="shipmentDateFrom" type="date">
+                                    </div>
+                                    <div class="filter-field">
+                                        <label for="shipmentDateTo">Date to <span>(optional)</span></label>
+                                        <input id="shipmentDateTo" type="date">
+                                    </div>
+                                </div>
+                                <div class="filter-search-actions">
+                                    <label class="filter-search-input">
+                                        <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+                                        <input id="shipmentSearchFilter" type="search" placeholder="Search tracking no. or supply..." aria-label="Search tracking number or supply">
+                                    </label>
+                                    <div class="filter-buttons">
+                                        <button type="button" class="secondary-btn" id="shipmentFilterReset">Reset</button>
+                                        <button type="button" class="primary-btn" id="shipmentFilterApply">Apply Filters</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </details>
+
+                        <div class="table-container">
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Tracking No.</th>
+                                        <th>Type</th>
+                                        <th>Supply</th>
+                                        <th>Supplier / Buyer</th>
+                                        <th>Quantity</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th id="shipmentActionsHeading">Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="shipmentTableBody"></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            
+</div>
+
+<div class="app-page" id="page-suppliers" data-page="suppliers" hidden>
+
+
+            <header class="topbar feature-page-topbar">
+                <div>
+                    <h1>Suppliers</h1>
+                </div>
+                <div class="feature-page-actions">
+                    <button type="button" class="secondary-btn filter-toggle-btn" id="supplierFilterToggle" aria-expanded="false" aria-controls="supplierFilterPanel"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3-1v-7.6L4 5z"></path></svg>Filter</button>
+                    <button class="primary-btn" id="supplierAddButton" onclick="openSupplierModal()">+ Add Supplier</button>
+                </div>
+            </header>
+
+            <section class="page-content">
+
+                <div class="inventory-summary">
+                    <div class="mini-card">
+                        <span>Total Suppliers</span>
+                        <strong id="supplierTotal">0</strong>
+                    </div>
+
+                    <div class="mini-card">
+                        <span>Active Suppliers</span>
+                        <strong id="activeSupplierCount">0</strong>
+                    </div>
+                </div>
+
+                <div class="table-toolbar feature-toolbar" id="supplierFeatureToolbar">
+                    <div>
+                        <h2>Suppliers</h2>
+                        <p>Manage supplier contacts and the categories they provide.</p>
+                    </div>
+                </div>
+                <details class="filter-search-panel" id="supplierFilterPanel">
+                    <summary><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3 1v-7.6L4 5z"></path></svg><span>Filter Search</span></summary>
+                    <div class="filter-search-content">
+                        <div class="filter-grid">
+                            <div class="filter-field">
+                                <label for="supplierCategoryFilter">Category</label>
+                                <select id="supplierCategoryFilter">
+                                    <option value="all">All Categories</option>
+                                    <option value="Milk">Milk</option>
+                                    <option value="Coffee Beans">Coffee Beans</option>
+                                    <option value="Sugar">Sugar</option>
+                                    <option value="Syrups">Syrups</option>
+                                    <option value="Cups">Cups</option>
+                                    <option value="Pearls">Pearls</option>
+                                    <option value="Powdered Flavors">Powdered Flavors</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label for="supplierStatusFilter">Status</label>
+                                <select id="supplierStatusFilter">
+                                    <option value="all">All Statuses</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-search-actions">
+                            <label class="filter-search-input">
+                                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+                                <input id="supplierSearchFilter" type="search" placeholder="Search company name..." aria-label="Search supplier company name">
+                            </label>
+                            <div class="filter-buttons">
+                                <button type="button" class="secondary-btn" id="supplierFilterReset">Reset</button>
+                                <button type="button" class="primary-btn" id="supplierFilterApply">Apply Filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                <div class="supplier-grid" id="supplierGrid"></div>
+
+            </section>
+
+        
+</div>
+
+<div class="app-page" id="page-buyers" data-page="buyers" hidden>
+            <header class="topbar"><h1>Buyers</h1></header>
+            <section class="page-content">
+                <div class="inventory-summary">
+                    <div class="mini-card"><span>Total Buyers</span><strong id="buyerTotal">0</strong></div>
+                    <div class="mini-card"><span>Active Buyers</span><strong id="activeBuyerCount">0</strong></div>
+                    <div class="mini-card"><span>Inactive Buyers</span><strong id="inactiveBuyerCount">0</strong></div>
+                </div>
+                <div class="page-actions">
+                    <button class="primary-btn" type="button" onclick="openBuyerModal()">+ Add Buyer</button>
+                </div>
+                <div class="supplier-grid" id="buyerGrid"></div>
+            </section>
+</div>
+
+<div class="app-page" id="page-reports" data-page="reports" hidden>
+
+
+            <header class="topbar">
+                <div>
+                    <h1>Low Stocks</h1>
+                </div>
+            </header>
+
+            <section class="page-content">
+
+                <div class="report-grid">
+
+                    <div class="report-card">
+                        <span>📦</span>
+                        <div>
+                            <small>Total Inventory Items</small>
+                            <h2 id="reportProducts">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <span>⚠</span>
+                        <div>
+                            <small>Low Stock Items</small>
+                            <h2 id="reportLowStock">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <span>🚚</span>
+                        <div>
+                            <small>Incoming Shipments</small>
+                            <h2 id="reportIncoming">0</h2>
+                        </div>
+                    </div>
+
+                    <div class="report-card">
+                        <span>🏢</span>
+                        <div>
+                            <small>Total Suppliers</small>
+                            <h2 id="reportSuppliers">0</h2>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Low Stock Report</h2>
+                            <p>Supplies that require attention · <span id="lowStockPageCount">0</span> low or out-of-stock items</p>
+                        </div>
+                        <button class="primary-btn" onclick="window.print()">Print Report</button>
+                    </div>
+
+                    <p id="lowStockEmptyState" class="empty-state" hidden>All supplies are sufficiently stocked.</p>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Supply</th>
+                                    <th>Category</th>
+                                    <th>Current Stock</th>
+                                    <th>Minimum Stock</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="reportTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+        
+</div>
+
+<div class="app-page" id="page-users" data-page="users" hidden>
+
+            <header class="topbar feature-page-topbar">
+                <div>
+                    <h1>User Role Management</h1>
+                </div>
+                <div class="feature-page-actions">
+                    <button type="button" class="secondary-btn filter-toggle-btn" id="userFilterToggle" aria-expanded="false" aria-controls="userFilterPanel"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3-1v-7.6L4 5z"></path></svg>Filter</button>
+                    <button id="addUserButton" type="button" class="primary-btn">+ Create Account</button>
+                </div>
+            </header>
+            <section class="page-content user-management-page">
+                <div class="inventory-summary user-summary">
+                    <div class="mini-card"><span>Total Users</span><strong id="totalUsers">0</strong></div>
+                    <div class="mini-card"><span>Active Admins</span><strong id="activeAdmins">0</strong></div>
+                    <div class="mini-card"><span>Active Drivers</span><strong id="activeDrivers">0</strong></div>
+                    <div class="mini-card"><span>Inactive Accounts</span><strong id="inactiveUsers">0</strong></div>
+                </div>
+
+                <div class="panel">
+                    <div class="table-toolbar user-table-toolbar">
+                        <div>
+                            <h2>User Role Management</h2>
+                            <p>Manage user accounts, assigned roles, and access status.</p>
+                        </div>
+                    </div>
+                    <details class="filter-search-panel" id="userFilterPanel">
+                        <summary><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16l-6.5 7.4V19l-3 1v-7.6L4 5z"></path></svg><span>Filter Search</span></summary>
+                        <div class="filter-search-content">
+                            <div class="filter-grid">
+                                <div class="filter-field">
+                                    <label for="userRoleFilter">Role</label>
+                                    <select id="userRoleFilter">
+                                        <option value="all">All Roles</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Driver">Driver</option>
+                                        <option value="Staff">Employee</option>
+                                        <option value="Manager">Manager</option>
+                                    </select>
+                                </div>
+                                <div class="filter-field">
+                                    <label for="userStatusFilter">Status</label>
+                                    <select id="userStatusFilter">
+                                        <option value="all">All Statuses</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                        <option value="Suspended">Suspended</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter-search-actions">
+                                <label class="filter-search-input">
+                                    <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
+                                    <input id="userSearchFilter" type="search" placeholder="Search name or username..." aria-label="Search user name or username">
+                                </label>
+                                <div class="filter-buttons">
+                                    <button type="button" class="secondary-btn" id="userFilterReset">Reset</button>
+                                    <button type="button" class="primary-btn" id="userFilterApply">Apply Filters</button>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <div class="table-container">
+                        <table class="user-table">
+                            <thead>
+                                <tr>
+                                    <th>Name / Username</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Date Added</th>
+                                    <th>Last Login</th>
+                                    <th id="userActionsHeading">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="accountList"></tbody>
+                        </table>
+                    </div>
+                    <p id="userListEmpty" class="empty-state" hidden>No users match your search.</p>
+                </div>
+
+            </section>
+        
+</div>
+
+<div class="app-page" id="page-roles" data-page="roles" hidden>
+            <header class="topbar"><h1>Role Permissions</h1></header>
+            <section class="page-content">
+                <div class="panel permissions-panel">
+                    <div class="panel-header">
+                        <div><h2>Role Permissions</h2><p>Page access for each account role</p></div>
+                        <div class="permission-edit-actions">
+                            <button type="button" class="primary-btn" id="editPermissionsButton">Edit Permissions</button>
+                            <button type="button" class="secondary-btn" id="cancelPermissionsButton" hidden>Cancel</button>
+                            <button type="button" class="primary-btn" id="savePermissionsButton" hidden>Save Changes</button>
+                        </div>
+                    </div>
+                    <p class="permission-admin-note">Admin access stays Full Access to keep role management available.</p>
+                    <div class="table-container">
+                        <table class="permissions-table">
+                            <thead><tr><th>Feature / Page</th><th>Admin</th><th>Employee</th><th>Driver</th><th>Manager</th></tr></thead>
+                            <tbody id="rolePermissionsRows"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+</div>
+
+<div class="app-page" id="page-log" data-page="log" hidden>
+
+            <header class="topbar"><h1>Log Update</h1></header>
+            <section class="page-content">
+                <div class="panel">
+                    <div class="table-toolbar activity-toolbar">
+                        <div>
+                            <h2>System Activity</h2>
+                            <p id="activityLogDescription">Changes made to supplies, shipments, suppliers, buyers, and user accounts</p>
+                        </div>
+                        <div class="activity-tools">
+                            <input id="activitySearch" type="search" placeholder="Search activity" aria-label="Search activity">
+                            <select id="activityTypeFilter" aria-label="Filter activity by type">
+                                <option value="all">All Updates</option>
+                                <option value="Supply">Supplies</option>
+                                <option value="Shipment">Shipments</option>
+                                <option value="Supplier">Suppliers</option>
+                                <option value="Buyer">Buyers</option>
+                                <option value="User Account">User Accounts</option>
+                                <option value="Role Permissions">Role Permissions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table class="activity-table">
+                            <thead>
+                                <tr><th>Action</th><th>Details</th><th>Changed By</th><th>Role</th><th>Date &amp; Time</th><th id="activityDeleteHeading" hidden>Manage</th></tr>
+                            </thead>
+                            <tbody id="activityLogRows"></tbody>
+                        </table>
+                    </div>
+                    <p id="activityLogEmpty" class="empty-state" hidden></p>
+                </div>
+            </section>
+        
+</div>
+
+<div class="app-page" id="page-driver-history" data-page="driver-history" hidden>
+
+            <header class="topbar">
+                <div>
+                    <h1>Delivery History</h1>
+                </div>
+            </header>
+            <section class="page-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h2>Completed Deliveries</h2>
+                            <p>Record of outgoing shipments you delivered</p>
+                        </div>
+                        <a href="#" data-nav="dashboard" class="small-btn">My Deliveries</a>
+                    </div>
+                    <div id="deliveryHistoryList" class="driver-shipment-list"></div>
+                </div>
+            </section>
+        
+</div>
+
+        </main>
+        <div class="modal" id="stockModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h2 id="stockModalTitle">Add Supply</h2>
+                    <p>Enter supply information</p>
+                </div>
+
+                <button class="close-btn" onclick="closeStockModal()">×</button>
+            </div>
+
+            <form id="stockForm">
+
+                <input type="hidden" id="stockId">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Supply Name</label>
+                        <input type="text" id="stockName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="stockCategory" required>
+                            <option value="">Select category</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input type="number" id="stockQuantityInput" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Unit</label>
+                        <select id="stockUnit" required></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Minimum Stock</label>
+                        <input type="number" id="stockMinimum" min="0" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supplier</label>
+                        <input type="text" id="stockSupplier">
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeStockModal()">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Supply</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+<div class="modal" id="categoryModal">
+    <div class="modal-content category-modal-content">
+        <div class="modal-header">
+            <div>
+                <h2>Add New Category</h2>
+                <p>Choose a name and emoji for the dashboard.</p>
+            </div>
+            <button class="close-btn" type="button" id="closeCategoryModal" aria-label="Close category form">×</button>
+        </div>
+        <form id="categoryForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="newCategoryName">Category Name</label>
+                    <input type="text" id="newCategoryName" maxlength="40" placeholder="e.g. Tea Leaves" required>
+                </div>
+                <div class="form-group">
+                    <label for="newCategoryEmoji">Dashboard Emoji</label>
+                    <input type="text" id="newCategoryEmoji" maxlength="8" aria-label="Category emoji" placeholder="🍃" required>
+                </div>
+            </div>
+            <small class="form-hint" id="categoryFormMessage">The new category will be selected in Add Supply.</small>
+            <div class="modal-actions">
+                <button type="button" class="secondary-btn" id="cancelCategoryButton">Cancel</button>
+                <button type="submit" class="primary-btn">Add Category</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="shipmentModal">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <div>
+                        <h2 id="shipmentModalTitle">Add Shipment</h2>
+                        <p id="shipmentModalDescription">Create a new shipment record</p>
+                    </div>
+
+                    <button class="close-btn" onclick="closeShipmentModal()">×</button>
+                </div>
+
+                <form id="shipmentForm">
+                    <input type="hidden" id="shipmentId">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label>Shipment Type</label>
+                            <select id="shipmentType" required>
+                                <option value="">Select type</option>
+                                <option value="Incoming">Incoming</option>
+                                <option value="Outgoing">Outgoing</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shipmentSupply">Product</label>
+                            <select id="shipmentSupply" required disabled>
+                                <option value="">Select shipment type first</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="shipmentSupplierGroup" hidden>
+                            <label for="shipmentSupplier">Supplier</label>
+                            <select id="shipmentSupplier" disabled required>
+                                <option value="">Select a product first</option>
+                            </select>
+                            <small class="form-hint" id="shipmentSupplierHint"></small>
+                        </div>
+
+                        <div class="form-group" id="shipmentBuyerGroup" hidden>
+                            <label for="shipmentBuyer">Buyer</label>
+                            <input type="text" id="shipmentBuyer" list="shipmentBuyerOptions" placeholder="Select or enter a buyer" disabled required>
+                            <datalist id="shipmentBuyerOptions"></datalist>
+                        </div>
+
+                        <div class="form-group" id="shipmentDriverGroup" hidden>
+                            <label for="shipmentDriver">Assign Driver</label>
+                            <select id="shipmentDriver" disabled required>
+                                <option value="">Select a driver</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="number" id="shipmentQuantity" min="1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Shipment Date</label>
+                            <input type="date" id="shipmentDate" required>
+                        </div>
+
+                        <div class="form-group" id="shipmentStatusGroup">
+                            <label>Status</label>
+                            <select id="shipmentStatus" required>
+                                <option value="Pending">Pending</option>
+                                <option value="In Transit">In Transit</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" class="secondary-btn" onclick="closeShipmentModal()">Cancel</button>
+                        <button type="submit" class="primary-btn">Save Shipment</button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+<div class="modal" id="receiveModal">
+            <div class="modal-content driver-modal-content">
+                <div class="modal-header">
+                    <div>
+                        <h2>Receive Supply</h2>
+                        <p>Confirm incoming supplies when they arrive</p>
+                    </div>
+                    <button class="close-btn" onclick="closeReceiveSupplies()" aria-label="Close Receive Supply">×</button>
+                </div>
+                <div id="incomingShipmentList" class="driver-shipment-list"></div>
+            </div>
+        </div>
+
+<div class="modal" id="supplierModal">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div>
+                    <h2>Add Supplier</h2>
+                    <p>Enter supplier company information</p>
+                </div>
+
+                <button class="close-btn" onclick="closeSupplierModal()">×</button>
+            </div>
+
+            <form id="supplierForm">
+
+                <input type="hidden" id="supplierId">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="supplierName" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contact Person</label>
+                        <input type="text" id="supplierContact" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="text" id="supplierPhone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="supplierEmail">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supply Category</label>
+                        <select id="supplierCategory" required>
+                            <option value="">Select category</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="supplierStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeSupplierModal()">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Supplier</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+<div class="modal" id="buyerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h2 id="buyerModalTitle">Add Buyer</h2>
+                    <p>Enter buyer contact information</p>
+                </div>
+                <button class="close-btn" type="button" onclick="closeBuyerModal()" aria-label="Close buyer form">×</button>
+            </div>
+            <form id="buyerForm">
+                <input type="hidden" id="buyerId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="buyerName">Buyer Name</label>
+                        <input type="text" id="buyerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerContact">Contact Person</label>
+                        <input type="text" id="buyerContact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerPhone">Phone Number</label>
+                        <input type="text" id="buyerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerEmail">Email</label>
+                        <input type="email" id="buyerEmail">
+                    </div>
+                    <div class="form-group">
+                        <label for="buyerStatus">Status</label>
+                        <select id="buyerStatus">
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="secondary-btn" onclick="closeBuyerModal()">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Buyer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div class="modal" id="userModal" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+        <div class="modal-content user-modal-content">
+            <div class="modal-header">
+                <div><h2 id="userModalTitle">Create Account</h2><p id="userModalDescription">Add a user and assign their role.</p></div>
+                <button type="button" class="close-btn" id="closeUserModal" aria-label="Close user form">&times;</button>
+            </div>
+            <form id="userForm" class="user-form">
+                <input type="hidden" id="userId">
+                <div class="form-group"><label for="userFullName">Full name</label><input id="userFullName" type="text" maxlength="80" required></div>
+                <div class="form-group"><label for="userEmail">Email</label><input id="userEmail" type="email" maxlength="120" required></div>
+                <div class="form-group"><label for="userUsername">Username</label><input id="userUsername" type="text" maxlength="40" required autocomplete="off"></div>
+                <div class="form-group"><label for="userPassword">Password <span id="passwordOptionalNote"></span></label><input id="userPassword" type="password" minlength="6" autocomplete="new-password"></div>
+                <div class="form-group"><label for="userRole">Role</label><select id="userRole" required><option value="Staff">Employee</option><option value="Driver">Driver</option><option value="Admin">Admin</option><option value="Manager">Manager</option></select></div>
+                <div class="form-group"><label for="userStatus">Status</label><select id="userStatus" required><option value="Active">Active</option><option value="Inactive">Inactive</option><option value="Suspended">Suspended</option></select></div>
+                <div class="user-form-actions"><button type="button" class="secondary-btn" id="cancelUserForm">Cancel</button><button type="submit" class="primary-btn" id="saveUserButton">Create Account</button></div>
+                <p id="userFormFeedback" class="profile-feedback" role="status"></p>
+            </form>
+        </div>
+    </div>
+    </div>
+    <script src="../JS/accounts.js"></script>
+    <script src="../JS/app.js"></script>
+    <script src="../JS/inventory.js"></script>
+    <script src="../JS/suppliers.js"></script>
+    <script src="../JS/buyers.js"></script>
+    <script src="../JS/shipment.js"></script>
+</body>
+</html>

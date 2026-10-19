@@ -1,0 +1,56 @@
+[
+  {
+    "id": "STK1791107477650181",
+    "name": "Fresh Milk",
+    "category": "Milk",
+    "quantity": 18,
+    "unit": "L",
+    "minimum": 10,
+    "supplier": "Fresh Dairy Supply"
+  },
+  {
+    "id": "STK179110747765016",
+    "name": "Arabica Coffee Beans",
+    "category": "Beans",
+    "quantity": 8,
+    "unit": "kg",
+    "minimum": 10,
+    "supplier": "Premium Coffee Traders"
+  },
+  {
+    "id": "STK1791107477650524",
+    "name": "White Sugar",
+    "category": "Sugar",
+    "quantity": 25,
+    "unit": "kg",
+    "minimum": 10,
+    "supplier": "Sweet Supply Co."
+  },
+  {
+    "id": "STK1791107477650918",
+    "name": "Vanilla Syrup",
+    "category": "Syrups",
+    "quantity": 7,
+    "unit": "bottles",
+    "minimum": 5,
+    "supplier": "Flavor House"
+  },
+  {
+    "id": "STK179110747765020",
+    "name": "12oz Paper Cups",
+    "category": "Cups",
+    "quantity": 45,
+    "unit": "pcs",
+    "minimum": 50,
+    "supplier": "Cafe Packaging PH"
+  },
+  {
+    "id": "STK1791107477650696",
+    "name": "Tapioca Pearls",
+    "category": "Pearls",
+    "quantity": 20,
+    "unit": "packs",
+    "minimum": 10,
+    "supplier": "Bubble Supply"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "SHP1791107477653826",
+    "tracking": "SHP-10001",
+    "type": "Incoming",
+    "supply": "Fresh Milk",
+    "supplier": "Fresh Dairy Supply",
+    "quantity": 20,
+    "date": "2026-09-20",
+    "status": "Delivered"
+  },
+  {
+    "id": "SHP1791107477653534",
+    "tracking": "SHP-10002",
+    "type": "Incoming",
+    "supply": "Coffee Beans",
+    "supplier": "Premium Coffee Traders",
+    "quantity": 15,
+    "date": "2026-09-22",
+    "status": "In Transit"
+  },
+  {
+    "id": "SHP1791117826930700",
+    "tracking": "SHP-38661",
+    "type": "Outgoing",
+    "supply": "Arabica Coffee Beans",
+    "supplier": "Big Brew",
+    "quantity": 6,
+    "date": "2026-10-04",
+    "status": "Delivered",
+    "assignedDriverId": "USR1791117797506709",
+    "assignedDriver": "ryan jhay",
+    "startedAt": "2026-10-04T12:44:00.129Z",
+    "deliveredAt": "2026-10-04T12:44:10.409Z"
+  }
+]

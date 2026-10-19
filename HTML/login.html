@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CafeCore Inventory Management System | Login</title>
+    <link rel="stylesheet" href="../CSS/login.css">
+</head>
+<body>
+    <main class="login-container">
+        <section class="login-visual" aria-label="About CafeCore">
+            <header class="login-brand">
+                <img class="login-brand-mark" src="../IMAGE/logoonlyd.png" alt="">
+                <span class="login-brand-copy">
+                    <img src="../IMAGE/cafe-core-wordmark.png" alt="CafeCore">
+                    <small>INVENTORY SYSTEM</small>
+                </span>
+            </header>
+
+            <div class="login-visual-copy">
+                <span class="login-kicker"><span aria-hidden="true"></span> Cafe operations, made simple</span>
+                <h1>Keep your cafe moving.</h1>
+                <p>Manage supplies, monitor stock levels, and keep every delivery on track—all in one place.</p>
+            </div>
+
+            <footer class="login-visual-footer">
+                © 2026 CafeCore Inventory System. All rights reserved.
+            </footer>
+        </section>
+
+        <section class="login-panel" aria-labelledby="loginHeading">
+            <div class="login-card">
+                <div class="login-heading">
+                    <span class="login-section-label"><span aria-hidden="true"></span> CafeCore Inventory</span>
+                    <h2 id="loginHeading">Sign in to CafeCore</h2>
+                    <p>Enter your account details to access your inventory workspace.</p>
+                </div>
+
+                <form id="loginForm">
+                    <div class="input-group">
+                        <div class="input-control">
+                            <img src="../IMAGE/user.png" alt="" aria-hidden="true">
+                            <input type="text" id="username" placeholder=" " autocomplete="username" required>
+                            <label for="username">Username</label>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="input-control">
+                            <img src="../IMAGE/padlock.png" alt="" aria-hidden="true">
+                            <input type="password" id="password" placeholder=" " autocomplete="current-password" required>
+                            <label for="password">Password</label>
+                            <button type="button" class="password-toggle" id="passwordToggle" aria-label="Show password" aria-pressed="false">
+                                <svg class="password-eye-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                                    <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z"></path>
+                                    <circle cx="12" cy="12" r="2.7"></circle>
+                                    <path class="password-eye-slash" d="M3 3 21 21"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn"><span>Sign In</span></button>
+                    <p id="loginMessage" class="login-message" role="status" aria-live="polite"></p>
+                </form>
+
+                <div class="login-footer">
+                    <span class="login-footer-rule" aria-hidden="true"></span>
+                    <p>CafeCore Inventory Management System</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../JS/accounts.js"></script>
+    <script src="../JS/auth.js"></script>
+</body>
+</html>

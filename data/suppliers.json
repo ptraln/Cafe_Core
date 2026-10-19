@@ -1,0 +1,29 @@
+[
+  {
+    "id": "SUP1791107477656264",
+    "name": "Fresh Dairy Supply",
+    "contact": "Juan Dela Cruz",
+    "phone": "09171234567",
+    "email": "freshdairy@example.com",
+    "category": "Milk",
+    "status": "Active"
+  },
+  {
+    "id": "SUP1791107477656479",
+    "name": "Premium Coffee Traders",
+    "contact": "Mark Santos",
+    "phone": "09181234567",
+    "email": "premiumcoffee@example.com",
+    "category": "Coffee Beans",
+    "status": "Active"
+  },
+  {
+    "id": "SUP1791107477656835",
+    "name": "Cafe Packaging PH",
+    "contact": "Anna Reyes",
+    "phone": "09191234567",
+    "email": "packaging@example.com",
+    "category": "Cups",
+    "status": "Active"
+  }
+]

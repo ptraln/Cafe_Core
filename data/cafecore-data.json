@@ -1,0 +1,144 @@
+{
+  "users": [
+    {
+      "id": "USR-admin",
+      "username": "admin",
+      "fullName": "Administrator",
+      "email": "",
+      "password": "admin123",
+      "role": "Admin",
+      "status": "Active",
+      "createdAt": "2026-10-04T09:51:08.264Z",
+      "lastLogin": "2026-10-04T09:51:17.361Z"
+    }
+  ],
+  "stocks": [
+    {
+      "id": "STK1791107477650181",
+      "name": "Fresh Milk",
+      "category": "Milk",
+      "quantity": 18,
+      "unit": "L",
+      "minimum": 10,
+      "supplier": "Fresh Dairy Supply"
+    },
+    {
+      "id": "STK179110747765016",
+      "name": "Arabica Coffee Beans",
+      "category": "Beans",
+      "quantity": 8,
+      "unit": "kg",
+      "minimum": 10,
+      "supplier": "Premium Coffee Traders"
+    },
+    {
+      "id": "STK1791107477650524",
+      "name": "White Sugar",
+      "category": "Sugar",
+      "quantity": 25,
+      "unit": "kg",
+      "minimum": 10,
+      "supplier": "Sweet Supply Co."
+    },
+    {
+      "id": "STK1791107477650918",
+      "name": "Vanilla Syrup",
+      "category": "Syrups",
+      "quantity": 7,
+      "unit": "bottles",
+      "minimum": 5,
+      "supplier": "Flavor House"
+    },
+    {
+      "id": "STK179110747765020",
+      "name": "12oz Paper Cups",
+      "category": "Cups",
+      "quantity": 45,
+      "unit": "pcs",
+      "minimum": 50,
+      "supplier": "Cafe Packaging PH"
+    },
+    {
+      "id": "STK1791107477650696",
+      "name": "Tapioca Pearls",
+      "category": "Pearls",
+      "quantity": 20,
+      "unit": "packs",
+      "minimum": 10,
+      "supplier": "Bubble Supply"
+    }
+  ],
+  "shipments": [
+    {
+      "id": "SHP1791107477653826",
+      "tracking": "SHP-10001",
+      "type": "Incoming",
+      "supply": "Fresh Milk",
+      "supplier": "Fresh Dairy Supply",
+      "quantity": 20,
+      "date": "2026-09-20",
+      "status": "Delivered"
+    },
+    {
+      "id": "SHP1791107477653534",
+      "tracking": "SHP-10002",
+      "type": "Incoming",
+      "supply": "Coffee Beans",
+      "supplier": "Premium Coffee Traders",
+      "quantity": 15,
+      "date": "2026-09-22",
+      "status": "In Transit"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "SUP1791107477656264",
+      "name": "Fresh Dairy Supply",
+      "contact": "Juan Dela Cruz",
+      "phone": "09171234567",
+      "email": "freshdairy@example.com",
+      "category": "Milk",
+      "status": "Active"
+    },
+    {
+      "id": "SUP1791107477656479",
+      "name": "Premium Coffee Traders",
+      "contact": "Mark Santos",
+      "phone": "09181234567",
+      "email": "premiumcoffee@example.com",
+      "category": "Coffee Beans",
+      "status": "Active"
+    },
+    {
+      "id": "SUP1791107477656835",
+      "name": "Cafe Packaging PH",
+      "contact": "Anna Reyes",
+      "phone": "09191234567",
+      "email": "packaging@example.com",
+      "category": "Cups",
+      "status": "Active"
+    }
+  ],
+  "activityLog": [
+    {
+      "id": "ACT1791107477655342",
+      "action": "Added",
+      "entityType": "Shipment",
+      "details": "SHP-10001 · Incoming · Fresh Milk · 20 units · Delivered",
+      "actorId": "USR-admin",
+      "actorName": "Administrator",
+      "actorRole": "Admin",
+      "createdAt": "2026-10-04T09:51:17.655Z"
+    },
+    {
+      "id": "ACT1791107477655724",
+      "action": "Added",
+      "entityType": "Shipment",
+      "details": "SHP-10002 · Incoming · Coffee Beans · 15 units · In Transit",
+      "actorId": "USR-admin",
+      "actorName": "Administrator",
+      "actorRole": "Admin",
+      "createdAt": "2026-10-04T09:51:17.655Z"
+    }
+  ]
+}

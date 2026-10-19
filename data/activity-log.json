@@ -1,0 +1,32 @@
+[
+  {
+    "id": "ACT1791107477655342",
+    "action": "Added",
+    "entityType": "Shipment",
+    "details": "SHP-10001 · Incoming · Fresh Milk · 20 units · Delivered",
+    "actorId": "USR-admin",
+    "actorName": "Administrator",
+    "actorRole": "Admin",
+    "createdAt": "2026-10-04T09:51:17.655Z"
+  },
+  {
+    "id": "ACT1791107477655724",
+    "action": "Added",
+    "entityType": "Shipment",
+    "details": "SHP-10002 · Incoming · Coffee Beans · 15 units · In Transit",
+    "actorId": "USR-admin",
+    "actorName": "Administrator",
+    "actorRole": "Admin",
+    "createdAt": "2026-10-04T09:51:17.655Z"
+  },
+  {
+    "id": "ACT1791117797539681",
+    "action": "Created",
+    "entityType": "User Account",
+    "details": "ryan jhay · Driver",
+    "actorId": "USR-admin",
+    "actorName": "Administrator",
+    "actorRole": "Admin",
+    "createdAt": "2026-10-04T12:43:17.539Z"
+  }
+]

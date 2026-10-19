@@ -1,0 +1,24 @@
+[
+  {
+    "id": "USR-admin",
+    "username": "admin",
+    "fullName": "Administrator",
+    "email": "",
+    "password": "admin123",
+    "role": "Admin",
+    "status": "Active",
+    "createdAt": "2026-10-04T09:51:08.264Z",
+    "lastLogin": "2026-10-04T12:42:03.951Z"
+  },
+  {
+    "id": "USR1791117797506709",
+    "fullName": "ryan jhay",
+    "email": "ryanjhay@gmail.com",
+    "username": "driver",
+    "password": "driver123",
+    "role": "Driver",
+    "status": "Active",
+    "createdAt": "2026-10-04T12:43:17.506Z",
+    "lastLogin": "2026-10-04T12:43:56.851Z"
+  }
+]
